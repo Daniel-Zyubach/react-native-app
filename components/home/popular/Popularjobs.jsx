@@ -1,41 +1,47 @@
-import { useState } from 'react'
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useState } from "react";
+import { useRouter } from "expo-router";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 
-import styles from './popularjobs.style'
-import { SIZES, COLORS } from '../../../constants'
-
-import PopularJobCard from '../../common/cards/popular/PopularJobCard'
-
-//API
-import useFetch from '../../../hook/useFetch'
+import styles from "./popularjobs.style";
+import { COLORS, SIZES } from "../../../constants";
+import PopularJobCard from "../../common/cards/popular/PopularJobCard";
+import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const { data, isLoading, error } = useFetch("search", {
+    query: "React developer",
+    num_pages: "1",
+  });
 
-  //*CHECK* важная часть
-  const { data, isLoading, err } = useFetch('search', {
-    query: 'React developer',
-    num_pages: '1'
-  })
+  const [selectedJob, setSelectedJob] = useState();
 
-  const [selectedJob, setSelectedJob] = useState()
-  const handleCardPress = (item) => {}
+  const handleCardPress = (item) => {
+    router.push(`/job-details/${item.job_id}`);
+    setSelectedJob(item.job_id);
+  };
 
   return (
-    <View style={ styles.container } >
-
-      <View style={ styles.header } >
-        <Text style={ styles.headerTitle } >Популярные вакансии</Text>
-        <TouchableOpacity><Text style={ styles.headerBtn } >Показать всё</Text></TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Популярные вакансии</Text>
+        <TouchableOpacity>
+          <Text style={styles.headerBtn}>Показать всё</Text>
+        </TouchableOpacity>
       </View>
 
-      <View styles={ styles.cardsContainer } >
-        {isLoading ? ( //*CHECK* проверка на загрузку данных
-          <ActivityIndicator size='large' colors={ COLORS.primary } />
-        ) : err ? (
-          <Text>Что-то пошло не так...</Text>
-        ) : ( //*CHECK* работа с загруженными данными
+      <View style={styles.cardsContainer}>
+        {isLoading ? (
+          <ActivityIndicator size='large' color={COLORS.primary} />
+        ) : error ? (
+          <Text>Something went wrong</Text>
+        ) : (
           <FlatList
             data={data}
             renderItem={({ item }) => (
@@ -45,16 +51,14 @@ const Popularjobs = () => {
                 handleCardPress={handleCardPress}
               />
             )}
-            keyExtractor={item => item?.job_id}
+            keyExtractor={(item) => item.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
-            showsHorizontalScrollIndicator={false}
-          /> //*CHECK* важная часть
-        )} 
+          />
+        )}
       </View>
-
     </View>
-  )
-}
+  );
+};
 
-export default Popularjobs
+export default Popularjobs;

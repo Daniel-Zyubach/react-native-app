@@ -1,22 +1,17 @@
-//кнопки навигации
+import { Image, TouchableOpacity } from "react-native";
 
-import React from 'react'
-import { TouchableOpacity, Image } from 'react-native'
+import styles from "./screenheader.style";
 
-import styles from './screenheader.style'
-
-//передаём пропсами значения
-const ScreenHeaderBtn = ({ iconUrl, dimension }) => {
+const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
   return (
-    //оборачиваем в реакт нэтив-компонент кнопки и задаём стили отображения
-    <TouchableOpacity style={ styles.btnContainer } >
-      <Image //содержимое кнопки
-        source={ iconUrl }
-        style={ styles.btnImg( dimension ) }
+    <TouchableOpacity style={styles.btnContainer} onPress={handlePress}>
+      <Image
+        source={iconUrl}
         resizeMode='cover'
+        style={styles.btnImg(dimension)}
       />
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default ScreenHeaderBtn
+export default ScreenHeaderBtn;

@@ -1,30 +1,32 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from "react-native";
 
-import styles from './nearbyjobcard.style'
-
-//проверка на наличие фото работодателя
-import { checkImageURL } from '../../../../utils/index'
+import styles from "./nearbyjobcard.style";
+import { checkImageURL } from "../../../../utils";
 
 const NearbyJobCard = ({ job, handleNavigate }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleNavigate}>
-
       <TouchableOpacity style={styles.logoContainer}>
         <Image
-          source={{ uri: checkImageURL(job.employer_logo) ? job.employer_logo : 'https://cdn3.iconfinder.com/data/icons/human-resources-management/512/job_vacancy_work_oppotunity-1024.png' }}
+          source={{
+            uri: checkImageURL(job.employer_logo)
+              ? job.employer_logo
+              : "https://cdn3.iconfinder.com/data/icons/human-resources-management/512/job_vacancy_work_oppotunity-1024.png",
+          }}
           resizeMode='contain'
-          style={styles.logoImage}
+          style={styles.logImage}
         />
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
-        <Text style={styles.jobName} numberOfLines={1}>{job.job_title}</Text>
-        <Text style={styles.jobType}>{job.job_employment_type}</Text>
+        <Text style={styles.jobName} numberOfLines={1}>
+          {job?.job_title}
+        </Text>
+
+        <Text style={styles.jobType}>{job?.job_employment_type}</Text>
       </View>
-
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default NearbyJobCard
+export default NearbyJobCard;

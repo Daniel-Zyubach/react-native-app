@@ -1,28 +1,30 @@
-import { Stack } from 'expo-router'
+import { Stack } from "expo-router";
+import { useFonts } from "expo-font";
+// import * as SplashScreen from "expo-splash-screen";
 
-//подключение шрифтов
-import { useCallback } from 'react'
-import { useFonts } from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
-SplashScreen.preventAutoHideAsync()
+// SplashScreen.preventAutoHideAsync();
+
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: "home",
+};
 
 const Layout = () => {
-  //загрузка шрифтов
   const [fontsLoaded] = useFonts({
-    //импорт шрифтов
-    DMRegular: require('../assets/fonts/DMSans-Regular.ttf'),
-    DMMedium: require('../assets/fonts/DMSans-Medium.ttf'),
-    DMBold: require('../assets/fonts/DMSans-Bold.ttf')
-  })
-  //вывод шрифтов на экран
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync()
-    }
-  }, [fontsLoaded])
-  if (!fontsLoaded) return null
+    DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
+    DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
+    DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
+  });
 
-  return <Stack onLayout={ onLayoutRootView } />
-}
+  if (!fontsLoaded) {
+    return null;
+  }
 
-export default Layout
+  return (
+    <Stack initialRouteName="home">
+      <Stack.Screen name="home" />
+    </Stack>
+  )
+};
+
+export default Layout;
