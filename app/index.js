@@ -18,6 +18,24 @@ const Home = () => {
     //оборачивание в безопасную зону видимости
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
 
+      <Stack.Screen //шапка с навигацией
+        //вёрстка и задание стиля шапки в виде объека
+        options={{
+          //стиль
+          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerShadowVisible: false,
+          //кнопки
+          headerLeft: () => (
+            <ScreenHeaderBtn iconUrl={ icons.menu } dimension='60%' />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={ images.profile } dimension='100%' />
+          ),
+          //скрытие дефолтного заголовка
+          headerTitle: ''
+        }}
+      />
+
     </SafeAreaView>
   )
 }
