@@ -36,6 +36,14 @@ const Home = () => {
         }}
       />
 
+      <ScrollView /* главный блок с прокруткой */ showsVerticalScrollIndicator={ false } >
+        <View /* содержимое главного блока */ style={{ flex: 1, padding: 16 }} >
+          <Welcome /* первая секция */ />
+          <Popularjobs /* вторая секция */ />
+          <Nearbyjobs /* третья секция */ />
+        </View>
+      </ScrollView>
+
     </SafeAreaView>
   )
 }
