@@ -5,6 +5,17 @@
       "bundler": "metro"
     },
     "name": "react_native_test",
-    "slug": "react_native_test"
+    "slug": "react_native_test",
+    "extra": {
+      "eas": {
+        "projectId": "cbc6e4e7-3c59-4ef9-a540-505677e91aad"
+      }
+    },
+    "android": {
+      "package": "com.danielzyubach.react_native_test"
+    },
+    "ios": {
+      "bundleIdentifier": "."
+    }
   }
 }
